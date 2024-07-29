@@ -39,7 +39,7 @@ function RegisterStep01({ onNextStep }) {
             <div>
               <CustomInput
                 label="Password"
-                type="text"
+                type="password"
                 placeholder="#########"
                 name="password"
               />
