@@ -9,7 +9,11 @@ const dragableSurfaceSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      state.layout.push(action.payload);
+      const newItem = action.payload;
+      const exists = state.layout.some(item => item.i === newItem.i);
+      if (!exists) {
+        state.layout.push(newItem);
+      }
     },
     updateLayout: (state, action) => {
       state.layout = action.payload;
