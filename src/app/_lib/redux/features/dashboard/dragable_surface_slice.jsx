@@ -9,14 +9,16 @@ const dragableSurfaceSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      console.log(action.payload);
       state.layout.push(action.payload);
     },
     updateLayout: (state, action) => {
       state.layout = action.payload;
     },
+    removeItem: (state, action) => {
+      state.layout = state.layout.filter(item => item.i !== action.payload);
+    },
   },
 });
 
-export const { addItem, updateLayout } = dragableSurfaceSlice.actions;
+export const { addItem, updateLayout, removeItem } = dragableSurfaceSlice.actions;
 export default dragableSurfaceSlice.reducer;
