@@ -42,7 +42,7 @@ function DragableSurface({
             className="border-gray-300 border-[0.1px] rounded-sm"
           >
             {/* <div dangerouslySetInnerHTML={{ __html: item.content }} /> */}
-            <div dangerouslySetInnerHTML={{ __html: design }} />
+            <div dangerouslySetInnerHTML={{ __html: item.style }} />
           </div>
         ))}
       </ReactGridLayout>

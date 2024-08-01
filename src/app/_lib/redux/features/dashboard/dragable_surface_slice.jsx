@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   layout: [],
-  design: "",
 };
 
 const dragableSurfaceSlice = createSlice({
@@ -10,9 +9,8 @@ const dragableSurfaceSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      console.log(action);
+      console.log(action.payload);
       state.layout.push(action.payload);
-      state.design = action.payload.style;
     },
     updateLayout: (state, action) => {
       state.layout = action.payload;

@@ -1,5 +1,5 @@
 import { apiSlice } from "../api/api_slice";
-import { userLoggedIn, userLoggedOut, userRegistration } from "./auth_slice";
+import { userLoggedIn, userLoggedOut } from "./auth_slice";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -13,14 +13,13 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          console.log(result);
-          // dispatch(
-          //   userLoggedIn({
-          //     accessToken: result.data.access_token,
-          //     refreshToken: result.data.refresh_token,
-          //     user: result.data.user,
-          //   })
-          // );
+          dispatch(
+            userLoggedIn({
+              accessToken: result.data.access_token,
+              refreshToken: result.data.refresh_token,
+              user: result.data.user,
+            })
+          );
         } catch (error) {
           console.log("error");
         }
@@ -43,7 +42,6 @@ export const authApi = apiSlice.injectEndpoints({
               user: result.data.user,
             })
           );
-
         } catch (error) {
           console.log("error");
         }
