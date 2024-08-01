@@ -13,9 +13,8 @@ function page() {
 
   return (
     <div
-      className={` ${
-        isSidebarOpen ? "ml-[250px]" : "ml-[60px]"
-      } overflow-hidden px-15 py-5 h-screen`}
+      className={` ${isSidebarOpen ? "ml-[250px]" : "ml-[60px]"
+        } overflow-hidden px-15 py-5 h-screen`}
     >
       <div className="container-fluid px-[1rem] pt-[3.5rem]">
         <div className="grid grid-cols-1 pb-6">
@@ -30,7 +29,7 @@ function page() {
 
         <div className="text-center fixed bottom-0 right-0 m-10">
           <button
-            className="text-white bg-black hover:bg-black-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 mb-2 focus:outline-none w-[78px] h-[78px] flex items-center justify-center"
+            className="text-white bg-black hover:bg-black-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm p-2 mb-2 focus:outline-none w-[50px] h-[50px] flex items-center justify-center"
             type="button"
             data-drawer-target="drawer-right-example"
             data-drawer-show="drawer-right-example"
@@ -38,7 +37,7 @@ function page() {
             aria-controls="drawer-right-example"
             onClick={(e) => setWidgetBar(!isOpenWidgetBar)}
           >
-            <BiSolidWidget size={30} />
+            <BiSolidWidget style={{ fontSize: "20px" }} />
           </button>
         </div>
         <WidgetDrawer
