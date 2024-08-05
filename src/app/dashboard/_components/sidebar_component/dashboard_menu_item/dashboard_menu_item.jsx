@@ -1,15 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  DoubleRightOutlined,
+  RightOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { IoIosArrowForward } from "react-icons/io";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCollapsedSidebar } from "@/app/_lib/redux/features/dashboard/sidebar_slice";
+
+
 
 function DashboardMenuItem({ isSidebarOpen, menuItem }) {
   const dispatch = useDispatch()
@@ -18,6 +18,7 @@ function DashboardMenuItem({ isSidebarOpen, menuItem }) {
   const toggleCollapsed = () => {
     dispatch(toggleCollapsedSidebar());
   };
+
 
   const [mainMenuItems, setMainMenuItems] = useState(() => {
     const initialMainMenuItems = {};
@@ -94,14 +95,14 @@ function DashboardMenuItem({ isSidebarOpen, menuItem }) {
 
   return (
     <div
-      className={`fixed bottom-0 h-screen border-r top-[70px] bg-background border-border z-40 text-foreground`}
+      className={`fixed bottom-0 h-screen border-r bg-background border-border z-40 text-foreground`}
       style={{ width: isSidebarOpen ? "250px" : "65px" }}
     >
       <button
         onClick={toggleCollapsed}
         className="sidbar-hamburg hover:bg-accent-hover hover:duration-500 hover:text-foreground rounded-full"
       >
-        <DoubleRightOutlined
+        <RightOutlined
           className={`transform transition-transform duration-500 ${!collapsed ? "-rotate-45" : "rotate-[135deg]"
             }`}
         />
@@ -127,11 +128,10 @@ function DashboardMenuItem({ isSidebarOpen, menuItem }) {
                     {/* {mainMenu.icon} */}
                     <Image
                       src={mainMenu.icon}
-                      className={`mr-2`}
-                      style={{ color: "red" }}
+                      className={`mr-2 test`}
                       alt="image"
-                      width={20}
-                      height={20}
+                      width={25}
+                      height={25}
                     />
                     {mainMenu.hasOwnProperty("link") ? (
                       <Link
@@ -151,7 +151,7 @@ function DashboardMenuItem({ isSidebarOpen, menuItem }) {
                   {mainMenuItems[mainMenuIndex] && (
                     <div
                       className={`${!isSidebarOpen
-                        ? "absolute bg-background shadow-lg whitespace-nowrap left-16 "
+                        ? "absolute bg-background-transparent shadow-lg whitespace-nowrap left-16 "
                         : "ml-2 mt-2"
                         } cursor-pointer`}
                     >
@@ -227,7 +227,7 @@ function DashboardMenuItem({ isSidebarOpen, menuItem }) {
                               >
                                 <ul
                                   className={`${!isSidebarOpen
-                                    ? "ml-[85px] absolute bg-background shadow-lg "
+                                    ? "ml-[85px] absolute bg-background-transparent shadow-lg "
                                     : "mt-2 ml-6 tree-view"
                                     }`}
                                 >

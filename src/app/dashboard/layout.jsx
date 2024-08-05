@@ -22,11 +22,7 @@ const AuthLayout = ({ children }) => {
       <Protected>
         <div className="flex bg-background">
           <Sidebar isSidebarOpen={isSidebarOpen} />
-          <div className="flex flex-col w-full ">
-            <TopNavbar
-              toggleSidebar={toggleSidebar}
-              isSidebarOpen={isSidebarOpen}
-            />
+          <div className="flex w-full ">
             <div className="flex-grow p-4 overflow-y-auto">{children}</div>
           </div>
         </div>

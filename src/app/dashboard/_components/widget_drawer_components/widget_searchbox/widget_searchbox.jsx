@@ -5,14 +5,14 @@ function WidgetSearchBox() {
     <form className="max-w-md ">
       <label
         htmlFor="default-search"
-        className="mb-2 text-sm font-medium text-gray-900 sr-only"
+        className="mb-2 text-sm font-medium text-foreground sr-only"
       >
         Search
       </label>
       <div className="relative">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg
-            className="w-4 h-4 text-gray-500 "
+            className="w-4 h-4 text-gray-medium "
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -30,13 +30,13 @@ function WidgetSearchBox() {
         <input
           type="search"
           id="default-search"
-          className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none"
+          className="block w-full p-4 ps-10 text-sm text-gray-medium border border-border rounded-lg bg-background focus:outline-none"
           placeholder="Search Mockups, Logos..."
           required
         />
         <button
           type="submit"
-          className="text-white absolute end-2.5 bottom-2.5 bg-black hover:bg-black-800 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 "
+          className="text-foreground absolute end-2.5 bottom-2.5 bg-secondary hover:bg-black-800 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 "
         >
           Search
         </button>

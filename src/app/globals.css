@@ -2,14 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* html {
-  zoom: 1.1;
-} */
-
-.react-flow__panel.react-flow__attribution {
-  display: none !important;
-}
-
 [data-theme="light"] {
   --background: #ffffff;
   --foreground: #0f1214;
@@ -46,9 +38,9 @@
 }
 
 [data-theme="dark"] {
-  --background: #0f1214;
+  --background: #121212;
   --foreground: #ffffff;
-  --background-transparent: #1d2126;
+  --background-transparent: #1e1e1e;
 
   --primary: #09090b;
   --primary-foreground: #f8fafc;
@@ -418,7 +410,7 @@
   right: -13px;
   z-index: 1;
   background-color: var(--background);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: 50%;
   padding: 8px;
   transform: rotate(45deg);

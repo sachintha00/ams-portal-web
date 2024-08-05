@@ -8,15 +8,14 @@ function WidgetDrawer({ isOpenWidgetBar, setWidgetBar }) {
     <div>
       <div
         id="drawer-right-example"
-        className={`fixed top-0 ${
-          isOpenWidgetBar ? "right-[600px]" : "right-[0px]"
-        } z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-[600px] border-l-[.1px] border-black-800`}
+        className={`fixed top-0 ${isOpenWidgetBar ? "right-[600px]" : "right-[0px]"
+          } z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-background w-[600px] border-l-[.1px] border-border`}
         tabIndex={-1}
         aria-labelledby="drawer-right-label"
       >
         <h5
           id="drawer-right-label"
-          className="inline-flex items-center mb-4 text-base font-semibold text-gray-500 "
+          className="inline-flex items-center mb-4 text-base font-semibold text-foreground"
         >
           <svg
             className="w-4 h-4 me-2.5"
@@ -33,7 +32,7 @@ function WidgetDrawer({ isOpenWidgetBar, setWidgetBar }) {
           type="button"
           data-drawer-hide="drawer-right-example"
           aria-controls="drawer-right-example"
-          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-black-800 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center "
+          className="text-foreground bg-transparent hover:bg-background-transparent hover:text-black-800 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center "
           onClick={(e) => setWidgetBar(!isOpenWidgetBar)}
         >
           <svg
