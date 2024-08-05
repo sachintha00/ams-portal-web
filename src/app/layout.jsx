@@ -1,15 +1,16 @@
 "use client";
-import { Inter } from "next/font/google";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import "./globals.css";
 import { Providers } from "./Providers";
-
-const inter = Inter({ subsets: ["latin"] });
+import ThemeProvider from "./providers/ThemeProvider"
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Providers>
-        <body className={inter.className}>{children}</body>
+        <ThemeProvider>
+          <AntdRegistry>{children}</AntdRegistry>
+        </ThemeProvider>
       </Providers>
     </html>
   );

@@ -1,10 +1,24 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  DoubleRightOutlined,
+} from "@ant-design/icons";
 import Link from "next/link";
 import { IoIosArrowForward } from "react-icons/io";
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCollapsedSidebar } from "@/app/_lib/redux/features/dashboard/sidebar_slice";
 
 function DashboardMenuItem({ isSidebarOpen, menuItem }) {
+  const dispatch = useDispatch()
+  const collapsed = useSelector(state => state.sidebar.collapsed);
+
+  const toggleCollapsed = () => {
+    dispatch(toggleCollapsedSidebar());
+  };
+
   const [mainMenuItems, setMainMenuItems] = useState(() => {
     const initialMainMenuItems = {};
     menuItem.forEach((_, mainMenuIndex) => {
@@ -80,32 +94,41 @@ function DashboardMenuItem({ isSidebarOpen, menuItem }) {
 
   return (
     <div
-      className={`fixed bottom-0 h-screen border-r top-[70px] bg-white border-black-800 z-40 `}
+      className={`fixed bottom-0 h-screen border-r top-[70px] bg-background border-border z-40 text-foreground`}
       style={{ width: isSidebarOpen ? "250px" : "65px" }}
     >
+      <button
+        onClick={toggleCollapsed}
+        className="sidbar-hamburg hover:bg-accent-hover hover:duration-500 hover:text-foreground rounded-full"
+      >
+        <DoubleRightOutlined
+          className={`transform transition-transform duration-500 ${!collapsed ? "-rotate-45" : "rotate-[135deg]"
+            }`}
+        />
+      </button>
       <nav className="flex-grow mt-2 overflow-y-hidden">
         <ul className="mt-10 ">
           {menuItem.map((mainMenu, mainMenuIndex) => (
             <li key={mainMenuIndex} className="my-6">
               <ul>
                 <div
-                  className={`${
-                    !isSidebarOpen && "justify-center "
-                  } cursor-pointer ml-5 mb-2`}
+                  className={`${!isSidebarOpen && "justify-center "
+                    } cursor-pointer ml-5 mb-2`}
                 >
                   <div
                     className="flex items-center "
                     {...(!isSidebarOpen
                       ? {
-                          onMouseEnter: () => toggleMainMenu(mainMenuIndex),
-                          // onMouseLeave: () => toggleMainMenu(mainMenuIndex),
-                        }
+                        onMouseEnter: () => toggleMainMenu(mainMenuIndex),
+                        // onMouseLeave: () => toggleMainMenu(mainMenuIndex),
+                      }
                       : { onClick: () => toggleMainMenu(mainMenuIndex) })}
                   >
                     {/* {mainMenu.icon} */}
                     <Image
                       src={mainMenu.icon}
                       className={`mr-2`}
+                      style={{ color: "red" }}
                       alt="image"
                       width={20}
                       height={20}
@@ -127,11 +150,10 @@ function DashboardMenuItem({ isSidebarOpen, menuItem }) {
                   </div>
                   {mainMenuItems[mainMenuIndex] && (
                     <div
-                      className={`${
-                        !isSidebarOpen
-                          ? "absolute bg-white shadow-lg whitespace-nowrap left-16 "
-                          : "ml-2 mt-2"
-                      } cursor-pointer`}
+                      className={`${!isSidebarOpen
+                        ? "absolute bg-background shadow-lg whitespace-nowrap left-16 "
+                        : "ml-2 mt-2"
+                        } cursor-pointer`}
                     >
                       {mainMenu.subMenu &&
                         mainMenu.subMenu.map((submenuItem, submenuIndex) => (
@@ -142,24 +164,24 @@ function DashboardMenuItem({ isSidebarOpen, menuItem }) {
                                 className="block px-4 cursor-pointer"
                                 {...(!isSidebarOpen
                                   ? {
-                                      onMouseEnter: () =>
-                                        toggleSubmenu(
-                                          mainMenuIndex,
-                                          submenuIndex
-                                        ),
-                                      // onMouseLeave: () =>
-                                      //   toggleSubmenu(
-                                      //     mainMenuIndex,
-                                      //     submenuIndex
-                                      //   ),
-                                    }
+                                    onMouseEnter: () =>
+                                      toggleSubmenu(
+                                        mainMenuIndex,
+                                        submenuIndex
+                                      ),
+                                    // onMouseLeave: () =>
+                                    //   toggleSubmenu(
+                                    //     mainMenuIndex,
+                                    //     submenuIndex
+                                    //   ),
+                                  }
                                   : {
-                                      onClick: () =>
-                                        toggleSubmenu(
-                                          mainMenuIndex,
-                                          submenuIndex
-                                        ),
-                                    })}
+                                    onClick: () =>
+                                      toggleSubmenu(
+                                        mainMenuIndex,
+                                        submenuIndex
+                                      ),
+                                  })}
                               >
                                 {submenuItem.subMenuName}
                               </Link>
@@ -168,24 +190,24 @@ function DashboardMenuItem({ isSidebarOpen, menuItem }) {
                                 className="flex items-center justify-between px-4 py-2 cursor-pointer"
                                 {...(!isSidebarOpen
                                   ? {
-                                      onMouseEnter: () =>
-                                        toggleSubmenu(
-                                          mainMenuIndex,
-                                          submenuIndex
-                                        ),
-                                      // onMouseLeave: () =>
-                                      //   toggleSubmenu(
-                                      //     mainMenuIndex,
-                                      //     submenuIndex
-                                      //   ),
-                                    }
+                                    onMouseEnter: () =>
+                                      toggleSubmenu(
+                                        mainMenuIndex,
+                                        submenuIndex
+                                      ),
+                                    // onMouseLeave: () =>
+                                    //   toggleSubmenu(
+                                    //     mainMenuIndex,
+                                    //     submenuIndex
+                                    //   ),
+                                  }
                                   : {
-                                      onClick: () =>
-                                        toggleSubmenu(
-                                          mainMenuIndex,
-                                          submenuIndex
-                                        ),
-                                    })}
+                                    onClick: () =>
+                                      toggleSubmenu(
+                                        mainMenuIndex,
+                                        submenuIndex
+                                      ),
+                                  })}
                               >
                                 {submenuItem.subMenuName}
                                 {submenuItem.submenuItems?.nestedSubMenu && (
@@ -204,11 +226,10 @@ function DashboardMenuItem({ isSidebarOpen, menuItem }) {
                                 }}
                               >
                                 <ul
-                                  className={`${
-                                    !isSidebarOpen
-                                      ? "ml-[85px] absolute bg-white shadow-lg "
-                                      : "mt-2 ml-6 tree-view"
-                                  }`}
+                                  className={`${!isSidebarOpen
+                                    ? "ml-[85px] absolute bg-background shadow-lg "
+                                    : "mt-2 ml-6 tree-view"
+                                    }`}
                                 >
                                   {submenuItem.submenuItems.nestedSubMenu.map(
                                     (nestedItem, nestedIndex) => (

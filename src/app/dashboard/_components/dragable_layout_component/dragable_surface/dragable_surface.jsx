@@ -5,14 +5,16 @@ import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
 import { removeItem, updateLayout } from "@/app/_lib/redux/features/dashboard/dragable_surface_slice";
+import { useAddOrUpdateMutation } from "@/app/_lib/redux/features/dashboard/layout_api";
 
 const ReactGridLayout = WidthProvider(RGL);
 
 function DragableSurface() {
   const layout = useSelector((state) => state.dragableSurface.layout);
+  const [addOrUpdate] = useAddOrUpdateMutation()
   const dispatch = useDispatch();
 
-  const handleLayoutChange = (newLayout) => {
+  const handleLayoutChange = async (newLayout) => {
     const updatedLayout = layout.map(item => {
       const newItem = newLayout.find(nItem => nItem.i === item.i.toString());
       return newItem
@@ -21,7 +23,12 @@ function DragableSurface() {
     });
     console.log("New Layout: ", newLayout);
     console.log("Updated Layout: ", updatedLayout);
-    dispatch(updateLayout(updatedLayout));
+    try {
+      // const response = await addOrUpdate(updatedLayout);
+      // console.log(response)
+    } catch (error) {
+      console.error('Failed to update layout: ', error);
+    }
   };
 
   const handleRemoveItem = (itemKey) => {
@@ -37,13 +44,13 @@ function DragableSurface() {
         preventCollision={false}
         cols={12}
         onLayoutChange={handleLayoutChange}
-        style={{ border: '1px solid transparent' }}
+        style={{ border: '1px solid transparent', backgroundColor: "var(--background)" }}
       >
         {layout.map((item) => (
           <div
             key={item.i}
             data-grid={item}
-            className="border-gray-300 border-[0.1px] rounded-sm bg-white"
+            className="border-border border-[0.1px] rounded-sm bg-background"
           >
             <button
               onClick={() => handleRemoveItem(item.i)}

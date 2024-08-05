@@ -4,18 +4,23 @@ import Sidebar from "./_components/sidebar_component/sidebar/sidebar";
 import TopNavbar from "./_components/topnav_component/top_navbar/top_navbar";
 import { NavBarToggle } from "./_lib/context/navbar_toggle_context";
 import Protected from "../_lib/hooks/useProtected";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCollapsedSidebar } from "../_lib/redux/features/dashboard/sidebar_slice";
 
 const AuthLayout = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const dispatch = useDispatch()
+  const isSidebarOpen = useSelector((state) => state.sidebar.collapsed)
+  // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    // setIsSidebarOpen(!isSidebarOpen);
+    dispatch(toggleCollapsedSidebar());
   };
 
   return (
     <NavBarToggle.Provider value={isSidebarOpen}>
       <Protected>
-        <div className="flex">
+        <div className="flex bg-background">
           <Sidebar isSidebarOpen={isSidebarOpen} />
           <div className="flex flex-col w-full ">
             <TopNavbar

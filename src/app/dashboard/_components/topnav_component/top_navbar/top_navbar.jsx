@@ -8,13 +8,12 @@ import ProfileComponent from "../profile_component/profile_component";
 function TopNavbar({ toggleSidebar, isSidebarOpen }) {
   const sidebarWidth = isSidebarOpen ? "250px" : "65px";
   return (
-    <nav className="fixed top-0 left-0 right-0 z-10 flex items-center light:bg-[#ffffff] light:text-[#374151] light:border-[#e5e7eb] ">
+    <nav className="fixed top-0 left-0 right-0 z-10 flex items-center bg-background text-foreground border-border ">
       <div className="flex justify-between w-full">
         <div className="flex items-center topbar-brand">
           <div
-            className={`${
-              !isSidebarOpen ? "pl-4" : "px-6"
-            } lg:flex items-center shrink  h-[70px] border-r bg-[#fbfaff] border-black-800 `}
+            className={`${!isSidebarOpen ? "pl-4" : "px-6"
+              } lg:flex items-center shrink  h-[70px] border-r bg-background border-border `}
             style={{ width: `${sidebarWidth}` }}
           >
             <Image
@@ -31,9 +30,9 @@ function TopNavbar({ toggleSidebar, isSidebarOpen }) {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between w-full border-b border-black-800 ">
+        <div className="flex items-center justify-between w-full border-b border-border ">
           <div className="flex items-center ml-5">
-            <div className="" onClick={toggleSidebar}>
+            <div className="cursor-pointer" onClick={toggleSidebar}>
               <GiHamburgerMenu />
             </div>
             <div className="relative hidden p-0 ml-2 xl:block">

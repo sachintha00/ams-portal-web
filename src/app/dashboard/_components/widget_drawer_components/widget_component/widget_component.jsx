@@ -6,14 +6,18 @@ import WidgetMenuGrid from "../widget_menu_grid/widget_menu_grid";
 import WidgetMenuItem from "../widget_menu_item/widget_menu_item";
 import WidgetDrawerIconComponent from "../widget_drawer_icon_component/widget_drawer_icon_component";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetDrawerItemListQuery } from "@/app/_lib/redux/features/dashboard/drawer_item_api";
 import { addItem } from "@/app/_lib/redux/features/dashboard/dragable_surface_slice";
+import { useAddOrUpdateMutation } from "@/app/_lib/redux/features/dashboard/layout_api";
 
 function WidgetComponent() {
   const dispatch = useDispatch();
   const [widgets, setWidgets] = useState();
   const [selectedMenu, setSelectedMenu] = useState();
+  const [addOrUpdate] = useAddOrUpdateMutation()
+
+  const widgetListInLayout = useSelector((state) => state.dragableSurface.layout)
 
   const {
     data: drawerItemList,
@@ -50,6 +54,11 @@ function WidgetComponent() {
       i: index,
       style: designObject.style,
     };
+    const existWidget = widgetListInLayout.some((item) => item.i === newItem.i)
+    if (!existWidget) {
+      const response = await addOrUpdate(newItem);
+      console.log(response)
+    }
     dispatch(addItem(newItem));
   };
 
@@ -72,17 +81,17 @@ function WidgetComponent() {
           {widgets?.map((widget) =>
             selectedMenu === widget.category_name
               ? widget.category_related_all_object.map((widgetComponent) => (
-                  <WidgetDrawerIconComponent
-                    key={widgetComponent.id}
-                    widgetIcon={widgetComponent.image_path}
-                    onClick={() =>
-                      handleDrawerIconClick(
-                        widgetComponent.design_obj,
-                        widgetComponent.id
-                      )
-                    }
-                  />
-                ))
+                <WidgetDrawerIconComponent
+                  key={widgetComponent.id}
+                  widgetIcon={widgetComponent.image_path}
+                  onClick={() =>
+                    handleDrawerIconClick(
+                      widgetComponent.design_obj,
+                      widgetComponent.id
+                    )
+                  }
+                />
+              ))
               : null
           )}
         </WidgetIconGrid>
