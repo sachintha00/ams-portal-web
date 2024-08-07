@@ -10,7 +10,7 @@ const dragableSurfaceSlice = createSlice({
   reducers: {
     addItem: (state, action) => {
       const newItem = action.payload;
-      const exists = state.layout.some(item => item.i === newItem.i);
+      const exists = state.layout.some(item => item.widget_id === newItem.widget_id);
       if (!exists) {
         state.layout.push(newItem);
       }
@@ -19,7 +19,7 @@ const dragableSurfaceSlice = createSlice({
       state.layout = action.payload;
     },
     removeItem: (state, action) => {
-      state.layout = state.layout.filter(item => item.i !== action.payload);
+      state.layout = state.layout.filter(item => item.widget_id !== action.payload);
     },
   },
 });

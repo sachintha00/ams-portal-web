@@ -406,12 +406,12 @@
 .sidbar-hamburg {
   font-size: 12px;
   position: absolute;
-  top: 10px;
+  top: 30px;
   right: -13px;
   z-index: 1;
   background-color: var(--background);
-  border: 2px solid var(--border);
-  border-radius: 50%;
+  border: 1px solid var(--border);
+  border-radius: 0px;
   padding: 8px;
   transform: rotate(45deg);
   width: 25px;

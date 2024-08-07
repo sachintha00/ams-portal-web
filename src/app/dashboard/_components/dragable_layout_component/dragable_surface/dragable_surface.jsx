@@ -1,39 +1,70 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RGL, { WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
 import { removeItem, updateLayout } from "@/app/_lib/redux/features/dashboard/dragable_surface_slice";
-import { useAddOrUpdateMutation } from "@/app/_lib/redux/features/dashboard/layout_api";
+import { useAddOrUpdateMutation, useGetLayoutQuery, useRemoveItemApiMutation } from "@/app/_lib/redux/features/dashboard/layout_api";
 
 const ReactGridLayout = WidthProvider(RGL);
 
 function DragableSurface() {
-  const layout = useSelector((state) => state.dragableSurface.layout);
-  const [addOrUpdate] = useAddOrUpdateMutation()
   const dispatch = useDispatch();
+  const { data: fetchedLayout, error, isLoading } = useGetLayoutQuery();
+  const layout = useSelector((state) => state.dragableSurface.layout);
+  const [addOrUpdate] = useAddOrUpdateMutation();
+  const [removeItemApi] = useRemoveItemApiMutation();
+
+  useEffect(() => {
+    if (fetchedLayout && !isLoading) {
+      const formattedLayout = fetchedLayout.data.map(item => ({
+        ...item,
+        x: parseInt(item.x),
+        y: parseInt(item.y),
+        w: parseInt(item.w),
+        h: parseFloat(item.h),
+        widget_id: parseInt(item.widget_id),
+        id: parseInt(item.id),
+        i: item.widget_id.toString(),
+      }));
+      dispatch(updateLayout(formattedLayout));
+    }
+  }, [fetchedLayout, isLoading, dispatch]);
 
   const handleLayoutChange = async (newLayout) => {
-    const updatedLayout = layout.map(item => {
-      const newItem = newLayout.find(nItem => nItem.i === item.i.toString());
-      return newItem
-        ? { ...item, x: newItem.x, y: newItem.y, w: newItem.w, h: newItem.h }
-        : item;
-    });
+    console.log("Layout: ", layout);
+    const updatedItems = layout
+      .map(item => {
+        const newItem = newLayout.find(nItem => nItem.i === item.id.toString());
+        console.log("Item:", item, "New Item:", newItem);
+        return newItem && (item.x !== newItem.x || item.y !== newItem.y || item.w !== newItem.w || item.h !== newItem.h)
+          ? { ...item, x: newItem.x, y: newItem.y, w: newItem.w, h: newItem.h }
+          : null;
+      })
+      .filter(item => item !== null);
+
     console.log("New Layout: ", newLayout);
-    console.log("Updated Layout: ", updatedLayout);
-    try {
-      // const response = await addOrUpdate(updatedLayout);
-      // console.log(response)
-    } catch (error) {
-      console.error('Failed to update layout: ', error);
+    console.log("Updated Items: ", updatedItems);
+
+    for (const updatedItem of updatedItems) {
+      try {
+        const response = await addOrUpdate(updatedItem);
+        console.log('Updated Item Response:', response);
+      } catch (error) {
+        console.error('Failed to update item:', updatedItem, error);
+      }
     }
   };
 
-  const handleRemoveItem = (itemKey) => {
-    dispatch(removeItem(itemKey));
+  const handleRemoveItem = async (itemKey, widget_id) => {
+    console.log(itemKey, `line number ${58}`, `dragable_surface.jsx`);
+    dispatch(removeItem(widget_id));
+    await removeItemApi(itemKey);
   };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading layout</p>;
 
   return (
     <>
@@ -48,18 +79,17 @@ function DragableSurface() {
       >
         {layout.map((item) => (
           <div
-            key={item.i}
+            key={item.id}
             data-grid={item}
             className="border-border border-[0.1px] rounded-sm bg-background"
           >
             <button
-              onClick={() => handleRemoveItem(item.i)}
+              onClick={() => handleRemoveItem(item.id, item.widget_id)}
               style={{
                 position: 'absolute',
                 right: '5px',
                 top: '5px',
-                backgroundColor: 'red',
-                color: 'white',
+                color: 'var(--gray-dark)',
                 border: 'none',
                 borderRadius: '50%',
                 width: '20px',

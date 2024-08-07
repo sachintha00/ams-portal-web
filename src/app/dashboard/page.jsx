@@ -39,8 +39,8 @@ function page() {
         } px-15 h-screen`}
     >
       <div className="container-fluid px-[1rem] bg-background">
-        <div className="grid grid-cols-1 pb-6">
-          <h4 className="text-[18px] font-medium mb-sm-0 grow mb-2 md:mb-0">
+        <div className="grid grid-cols-1 mb-1">
+          <h4 className="text-[18px] font-medium mb-sm-0 grow md:mb-0">
             Dashboard
           </h4>
         </div>
@@ -129,7 +129,7 @@ function page() {
             </div>
             <div>
               <blockquote className="text-gray-dark border-l-4 border-secondary-foreground pl-4 italic">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s....
+                Lorem Ipsum is simply dummy text of the printing....
               </blockquote>
               <div className="flex mt-3">
                 <button

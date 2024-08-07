@@ -9,15 +9,16 @@ import WidgetDrawerIconComponent from "../widget_drawer_icon_component/widget_dr
 import { useDispatch, useSelector } from "react-redux";
 import { useGetDrawerItemListQuery } from "@/app/_lib/redux/features/dashboard/drawer_item_api";
 import { addItem } from "@/app/_lib/redux/features/dashboard/dragable_surface_slice";
-import { useAddOrUpdateMutation } from "@/app/_lib/redux/features/dashboard/layout_api";
+import { useAddOrUpdateMutation, useGetLayoutQuery } from "@/app/_lib/redux/features/dashboard/layout_api";
 
 function WidgetComponent() {
   const dispatch = useDispatch();
-  const [widgets, setWidgets] = useState();
-  const [selectedMenu, setSelectedMenu] = useState();
-  const [addOrUpdate] = useAddOrUpdateMutation()
+  const [widgets, setWidgets] = useState([]);
+  const [selectedMenu, setSelectedMenu] = useState(null);
+  const [addOrUpdate] = useAddOrUpdateMutation();
 
-  const widgetListInLayout = useSelector((state) => state.dragableSurface.layout)
+  const { data: fetchedLayout } = useGetLayoutQuery();
+  const widgetListInLayout = useSelector((state) => state.dragableSurface.layout);
 
   const {
     data: drawerItemList,
@@ -33,11 +34,7 @@ function WidgetComponent() {
 
     if (drawerItemList && drawerItemList.items.length > 0) {
       setWidgets(drawerItemList.items);
-      setSelectedMenu(
-        drawerItemList.items?.length > 0
-          ? drawerItemList.items?.[0].category_name
-          : null
-      );
+      setSelectedMenu(drawerItemList.items[0]?.category_name || null);
     }
   }, [drawerItemList, isLoading, isError, error]);
 
@@ -46,20 +43,34 @@ function WidgetComponent() {
   };
 
   const handleDrawerIconClick = async (designObject, index) => {
-    const newItem = {
-      x: designObject.x_value,
-      y: designObject.y_value,
-      w: designObject.width,
-      h: designObject.height,
-      i: index,
-      style: designObject.style,
-    };
-    const existWidget = widgetListInLayout.some((item) => item.i === newItem.i)
+    console.log(designObject);
+
+    const existWidget = widgetListInLayout.some((item) => item.widget_id === index);
+
     if (!existWidget) {
+      const newItemX = 0;
+      let newItemY = 0;
+
+      if (widgetListInLayout.length > 0) {
+        const maxY = Math.max(...widgetListInLayout.map(item => item.y + item.h));
+        newItemY = maxY;
+      }
+
+      const newItem = {
+        x: newItemX,
+        y: newItemY,
+        w: designObject.width,
+        h: designObject.height,
+        widget_id: index,
+        style: designObject.style,
+      };
+
+      dispatch(addItem(newItem));
       const response = await addOrUpdate(newItem);
-      console.log(response)
+      console.log(response);
+
+      console.log(widgetListInLayout);
     }
-    dispatch(addItem(newItem));
   };
 
   return (

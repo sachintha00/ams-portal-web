@@ -1,10 +1,9 @@
-// layout_api.js
 import { apiSlice } from '../api/api_slice';
 
 export const layoutApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getLayout: builder.query({
-            query: () => '/layout',
+            query: () => '/draggable_layout',
         }),
         addOrUpdate: builder.mutation({
             query: (updatedLayout) => ({
@@ -13,13 +12,13 @@ export const layoutApiSlice = apiSlice.injectEndpoints({
                 body: updatedLayout,
             }),
         }),
-        removeItem: builder.mutation({
+        removeItemApi: builder.mutation({
             query: (itemId) => ({
-                url: `/layout/${itemId}`,
+                url: `/draggable_layout/remove/${itemId}`,
                 method: 'DELETE',
             }),
         }),
     }),
 });
 
-export const { useGetLayoutQuery, useAddOrUpdateMutation, useRemoveItemMutation } = layoutApiSlice;
+export const { useGetLayoutQuery, useAddOrUpdateMutation, useRemoveItemApiMutation } = layoutApiSlice;
