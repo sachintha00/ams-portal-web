@@ -6,18 +6,16 @@ import WidgetMenuGrid from "../widget_menu_grid/widget_menu_grid";
 import WidgetMenuItem from "../widget_menu_item/widget_menu_item";
 import WidgetDrawerIconComponent from "../widget_drawer_icon_component/widget_drawer_icon_component";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useGetDrawerItemListQuery } from "@/app/_lib/redux/features/dashboard/drawer_item_api";
-import { addItem } from "@/app/_lib/redux/features/dashboard/dragable_surface_slice";
 import { useAddOrUpdateMutation, useGetLayoutQuery } from "@/app/_lib/redux/features/dashboard/layout_api";
 
 function WidgetComponent() {
-  const dispatch = useDispatch();
   const [widgets, setWidgets] = useState([]);
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [addOrUpdate] = useAddOrUpdateMutation();
 
-  const { data: fetchedLayout } = useGetLayoutQuery();
+  const { refetch: refetchedLayout } = useGetLayoutQuery();
   const widgetListInLayout = useSelector((state) => state.dragableSurface.layout);
 
   const {
@@ -42,9 +40,7 @@ function WidgetComponent() {
     setSelectedMenu(menuName);
   };
 
-  const handleDrawerIconClick = async (designObject, index) => {
-    console.log(designObject);
-
+  const handleDrawerIconClick = async (designObject, index, component, widget_type) => {
     const existWidget = widgetListInLayout.some((item) => item.widget_id === index);
 
     if (!existWidget) {
@@ -62,14 +58,12 @@ function WidgetComponent() {
         w: designObject.width,
         h: designObject.height,
         widget_id: index,
-        style: designObject.style,
+        widget_type: widget_type,
+        style: component,
       };
 
-      dispatch(addItem(newItem));
-      const response = await addOrUpdate(newItem);
-      console.log(response);
-
-      console.log(widgetListInLayout);
+      await addOrUpdate(newItem);
+      await refetchedLayout();
     }
   };
 
@@ -98,7 +92,9 @@ function WidgetComponent() {
                   onClick={() =>
                     handleDrawerIconClick(
                       widgetComponent.design_obj,
-                      widgetComponent.id
+                      widgetComponent.id,
+                      widgetComponent.design_component,
+                      widgetComponent.widget_type,
                     )
                   }
                 />

@@ -10,8 +10,9 @@ const dragableSurfaceSlice = createSlice({
   reducers: {
     addItem: (state, action) => {
       const newItem = action.payload;
-      const exists = state.layout.some(item => item.widget_id === newItem.widget_id);
-      if (!exists) {
+      const exists = state.layout.find(item => item.widget_id === newItem.widget_id);
+
+      if (!exists || exists === undefined) {
         state.layout.push(newItem);
       }
     },

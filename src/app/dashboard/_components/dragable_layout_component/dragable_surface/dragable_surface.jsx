@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import RGL, { WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import LineChartComponent from '../../widgets/line_chart'
+import BarChartComponent from '../../widgets/bar_chart'
+import PieChartComponent from '../../widgets/pie_chart'
+import parse from 'html-react-parser';
 
 import { removeItem, updateLayout } from "@/app/_lib/redux/features/dashboard/dragable_surface_slice";
 import { useAddOrUpdateMutation, useGetLayoutQuery, useRemoveItemApiMutation } from "@/app/_lib/redux/features/dashboard/layout_api";
@@ -25,6 +29,7 @@ function DragableSurface() {
         w: parseInt(item.w),
         h: parseFloat(item.h),
         widget_id: parseInt(item.widget_id),
+        widget_type: item.widget_type,
         id: parseInt(item.id),
         i: item.widget_id.toString(),
       }));
@@ -33,24 +38,19 @@ function DragableSurface() {
   }, [fetchedLayout, isLoading, dispatch]);
 
   const handleLayoutChange = async (newLayout) => {
-    console.log("Layout: ", layout);
     const updatedItems = layout
       .map(item => {
         const newItem = newLayout.find(nItem => nItem.i === item.id.toString());
-        console.log("Item:", item, "New Item:", newItem);
+
         return newItem && (item.x !== newItem.x || item.y !== newItem.y || item.w !== newItem.w || item.h !== newItem.h)
           ? { ...item, x: newItem.x, y: newItem.y, w: newItem.w, h: newItem.h }
           : null;
       })
       .filter(item => item !== null);
 
-    console.log("New Layout: ", newLayout);
-    console.log("Updated Items: ", updatedItems);
-
     for (const updatedItem of updatedItems) {
       try {
         const response = await addOrUpdate(updatedItem);
-        console.log('Updated Item Response:', response);
       } catch (error) {
         console.error('Failed to update item:', updatedItem, error);
       }
@@ -58,10 +58,10 @@ function DragableSurface() {
   };
 
   const handleRemoveItem = async (itemKey, widget_id) => {
-    console.log(itemKey, `line number ${58}`, `dragable_surface.jsx`);
     dispatch(removeItem(widget_id));
     await removeItemApi(itemKey);
   };
+
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading layout</p>;
@@ -101,7 +101,8 @@ function DragableSurface() {
             >
               &times;
             </button>
-            <div dangerouslySetInnerHTML={{ __html: item.style }} />
+            {item.widget_type === "" ? <div dangerouslySetInnerHTML={{ __html: item.style }} /> : item.widget_type === "LINE_CHART" ? <LineChartComponent /> : item.widget_type === "BAR_CHART" && <BarChartComponent />}
+            {/* <div dangerouslySetInnerHTML={{ __html: item.style }} /> */}
           </div>
         ))}
       </ReactGridLayout>
