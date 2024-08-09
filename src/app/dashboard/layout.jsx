@@ -1,23 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Sidebar from "./_components/sidebar_component/sidebar/sidebar";
 import { NavBarToggle } from "./_lib/context/navbar_toggle_context";
 import Protected from "../_lib/hooks/useProtected";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCollapsedSidebar } from "../_lib/redux/features/dashboard/sidebar_slice";
 import Sider from "antd/es/layout/Sider";
-import { Divider, Layout, Dropdown, message, Button, Space, Avatar } from "antd";
+import {  Layout, Dropdown, message, Button, Space, Avatar } from "antd";
 import {
   RightOutlined,
   UserOutlined,
-  DownOutlined,
 } from "@ant-design/icons";
 import { Content } from "antd/es/layout/layout";
 import { selectCurrentUser } from "../_lib/redux/features/auth/auth_slice";
 import { getCapitalizedFirstLetter } from './helpers/getFirstLetterFromName'
 import Image from "next/image";
 
-// Define menu items
 const items = [
   {
     label: '1st menu item',
@@ -47,21 +45,19 @@ const handleMenuClick = (e) => {
   console.log('click', e);
 };
 
-// Define menu properties
+
 const menuProps = {
   items,
   onClick: handleMenuClick,
 };
 
-// Main component
+
 const AuthLayout = ({ children }) => {
   const dispatch = useDispatch();
   const isSidebarOpen = useSelector((state) => state.sidebar.collapsed);
   const user = useSelector(selectCurrentUser);
-  // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
-    // setIsSidebarOpen(!isSidebarOpen);
     dispatch(toggleCollapsedSidebar());
   };
 
@@ -90,21 +86,23 @@ const AuthLayout = ({ children }) => {
                   priority
                 />
                 <div className={`flex flex-col ${isSidebarOpen && "hidden"}`}>
-                  <span className="ml-2 font-semibold text-secondary-foreground text-[16px]">OPTIOMAX</span>
+                  <span className="ml-2 font-bold text-secondary-foreground text-[16px]">OPTIOMAX</span>
                   <span className="ml-2 font-medium text-gray-medium text-[10px]">Asset Optimization</span>
                 </div>
               </div>
             </div>
             <Sidebar />
-            {/* Profile dropdown */}
             <Dropdown menu={menuProps} className="side-bar-profile">
               <Button>
                 <Space>
                   <Avatar
-                    src="https://example.com/your-profile-image.jpg" // Replace with your image URL
+                    src="https://example.com/your-profile-image.jpg"
                     size={40}
                     style={{ backgroundColor: 'var(--secondary)', }}
-                  ><span className="text-gray-medium">{getCapitalizedFirstLetter(user.name)}</span></Avatar>
+                  >
+                    <span className="text-gray-medium">{getCapitalizedFirstLetter(user.name)}</span>
+                  </Avatar>
+                  <span className={`font-bold text-subText text-[16px] ${isSidebarOpen && "hidden"}`}>{user.name}</span>
                 </Space>
               </Button>
             </Dropdown>
