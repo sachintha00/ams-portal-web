@@ -34,15 +34,11 @@ function page() {
   };
 
   return (
-    <div
-      className={` ${isSidebarOpen ? "ml-[250px]" : "ml-[60px]"
-        } px-15 h-screen`}
-    >
-      <div className="container-fluid px-[1rem] bg-background">
-        <div className="grid grid-cols-1 mb-1">
-          <h4 className="text-[18px] font-medium mb-sm-0 grow md:mb-0">
-            Dashboard
-          </h4>
+    <div >
+      <div className="bg-background">
+        <div className="px-3 mb-4 flex flex-col">
+          <span className="text-[16px] font-bold text-secondary-foreground">Dashboard</span>
+          <span className="text-[14px] font-medium text-gray-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, eius?</span>
         </div>
 
         <div>

@@ -9,7 +9,14 @@ export const dashboardSidebarMenuApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getSidebarMenus: builder.query({
+      query: () => ({
+        url: "get-menus",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useGetDashboardSidebarMenuItemsQuery } = dashboardSidebarMenuApi;
+export const { useGetDashboardSidebarMenuItemsQuery, useGetSidebarMenusQuery } = dashboardSidebarMenuApi;
