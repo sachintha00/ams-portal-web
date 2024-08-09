@@ -6,7 +6,7 @@ import Protected from "../_lib/hooks/useProtected";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCollapsedSidebar } from "../_lib/redux/features/dashboard/sidebar_slice";
 import Sider from "antd/es/layout/Sider";
-import {  Layout, Dropdown, message, Button, Space, Avatar } from "antd";
+import { Layout, Dropdown, message, Button, Space, Avatar } from "antd";
 import {
   RightOutlined,
   UserOutlined,
@@ -76,7 +76,7 @@ const AuthLayout = ({ children }) => {
               />
             </button>
             <div className="flex flex-col items-center bg-background border-r border-border">
-              <div className="flex flex-row items-center mb-20 mt-5">
+              <div className="flex flex-row items-center mb-12 mt-5">
                 <Image
                   className="relative bg-background"
                   src="/assets/logo.svg"
