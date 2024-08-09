@@ -9,7 +9,7 @@ import Sider from "antd/es/layout/Sider";
 import { Layout, Dropdown, message, Button, Space, Avatar } from "antd";
 import {
   RightOutlined,
-  UserOutlined,
+  PoweroffOutlined,
 } from "@ant-design/icons";
 import { Content } from "antd/es/layout/layout";
 import { selectCurrentUser } from "../_lib/redux/features/auth/auth_slice";
@@ -18,20 +18,9 @@ import Image from "next/image";
 
 const items = [
   {
-    label: '1st menu item',
+    label: 'Sign Out',
     key: '1',
-    icon: <UserOutlined />,
-  },
-  {
-    label: '2nd menu item',
-    key: '2',
-    icon: <UserOutlined />,
-  },
-  {
-    label: '3rd menu item',
-    key: '3',
-    icon: <UserOutlined />,
-    danger: true,
+    icon: <PoweroffOutlined />,
   },
 ];
 
@@ -92,7 +81,7 @@ const AuthLayout = ({ children }) => {
               </div>
             </div>
             <Sidebar />
-            <Dropdown menu={menuProps} className="side-bar-profile">
+            <Dropdown menu={menuProps} className="side-bar-profile" placement="topRight">
               <Button>
                 <Space>
                   <Avatar

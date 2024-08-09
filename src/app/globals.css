@@ -445,6 +445,10 @@ body {
   justify-content: center;
 }
 
+.side-bar-profile:hover {
+  background: var(--background) !important;
+}
+
 .ant-space-item {
   border: 1px solid transparent !important;
 }
