@@ -34,7 +34,8 @@ function RegisterStep03({ onNextStep, onPrevStep }) {
             contact_no: state.contactNo,
             password: state.password,
           };
-          const reponse = await register(data);
+          console.log("test")
+          // const reponse = await register(data);
           if (isSuccess) {
             router.push("/user_auth/signin");
           }

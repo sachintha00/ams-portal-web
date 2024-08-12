@@ -4,8 +4,11 @@ import { Formik, Form } from "formik";
 import CustomInput from "/app/_components/form_components/custom_input/custom_input";
 import CustomButton from "/app/_components/form_components/custom_button/custom_button";
 import Step02FormEnterpriseSchema from "../../_validation_schemas/sign_up_schemas/step_02_form_enterprise_schema";
+import { useFormState } from "react-dom";
 
 function EnterpriseUserForm({ onNextStep, onPrevStep }) {
+  const [state, setState] = useFormState();
+
   return (
     <Formik
       initialValues={{
@@ -19,6 +22,9 @@ function EnterpriseUserForm({ onNextStep, onPrevStep }) {
       validationSchema={Step02FormEnterpriseSchema}
       onSubmit={(values, actions) => {
         // actions.setSubmitting(false);
+        // console.log(values)
+        actions.setSubmitting(true);
+        setState({ ...state, ...values });
         onNextStep();
       }}
     >
