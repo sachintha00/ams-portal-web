@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLoggedIn, userLoggedOut } from "../auth/auth_slice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://192.168.8.111:8000/api/v1",
+  baseUrl: "http://213.199.44.42:8000/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.accessToken;
