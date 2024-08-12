@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  user: JSON.parse(localStorage.getItem("user")) || null,
-  accessToken: localStorage.getItem("accessToken") || null,
-  refreshToken: null,
-};
 // const initialState = {
-//   user: null,
-//   accessToken: null,
+//   user: JSON.parse(localStorage.getItem("user")) || null,
+//   accessToken: localStorage.getItem("accessToken") || null,
 //   refreshToken: null,
 // };
+const initialState = {
+  user: null,
+  accessToken: null,
+  refreshToken: null,
+};
 
 if (typeof window !== "undefined") {
   console.log("Initializing state from localStorage");

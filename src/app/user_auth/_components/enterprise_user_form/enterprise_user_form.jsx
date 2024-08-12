@@ -23,8 +23,6 @@ function EnterpriseUserForm({ onNextStep, onPrevStep }) {
       onSubmit={(values, actions) => {
         // actions.setSubmitting(false);
         // console.log(values)
-        actions.setSubmitting(true);
-        setState({ ...state, ...values });
         onNextStep();
       }}
     >

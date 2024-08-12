@@ -89,9 +89,9 @@ const AuthLayout = ({ children }) => {
                     size={40}
                     style={{ backgroundColor: 'var(--secondary)', }}
                   >
-                    <span className="text-gray-medium">{getCapitalizedFirstLetter(user.name)}</span>
+                    <span className="text-gray-medium">{getCapitalizedFirstLetter(user?.name)}</span>
                   </Avatar>
-                  <span className={`font-bold text-subText text-[16px] ${isSidebarOpen && "hidden"}`}>{user.name}</span>
+                  <span className={`font-bold text-subText text-[16px] ${isSidebarOpen && "hidden"}`}>{user?.name}</span>
                 </Space>
               </Button>
             </Dropdown>
