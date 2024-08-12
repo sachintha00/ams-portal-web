@@ -37,7 +37,7 @@ function page() {
     <div >
       <div className="bg-background">
         <div className="px-3 mb-4 flex flex-col">
-          <span className="text-[16px] font-bold text-secondary-foreground">Dashboard</span>
+          <span className="text-[22px] font-bold text-secondary-foreground">Dashboard</span>
           <span className="text-[14px] font-medium text-gray-medium">Welcome to your central hub for managing and optimizing your projects. This intuitive interface provides a comprehensive overview of all ongoing activities.</span>
         </div>
 

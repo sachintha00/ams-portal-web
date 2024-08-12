@@ -59,9 +59,9 @@ function SingleUserForm({ onNextStep, onPrevStep }) {
             name="website"
           />
           <CustomInput
-            label="Contact Person"
+            label="Contact Person Mobile"
             type="text"
-            placeholder="Contact person"
+            placeholder="Contact person Mobile"
             name="contactPerson"
           />
 

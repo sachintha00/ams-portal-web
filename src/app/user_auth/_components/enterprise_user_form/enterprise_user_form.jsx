@@ -43,9 +43,9 @@ function EnterpriseUserForm({ onNextStep, onPrevStep }) {
             name="contactNo"
           />
           <CustomInput
-            label="Contact Person"
+            label="Contact Person Mobile"
             type="text"
-            placeholder="Contact person"
+            placeholder="Contact Person Mobile"
             name="contactPerson"
           />
           <CustomInput
