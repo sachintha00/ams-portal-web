@@ -433,7 +433,7 @@ body {
 .side-bar-profile {
   font-size: 12px;
   position: absolute;
-  bottom: 15%;
+  bottom: 20vh;
   left: 40%;
   z-index: 1;
   border: 1px solid transparent !important;

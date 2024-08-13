@@ -1,10 +1,7 @@
+import dynamic from "next/dynamic";
 import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState = {
-//   user: JSON.parse(localStorage.getItem("user")) || null,
-//   accessToken: localStorage.getItem("accessToken") || null,
-//   refreshToken: null,
-// };
+// Ensure that `localStorage` is only accessed in the browser
 const initialState = {
   user: null,
   accessToken: null,

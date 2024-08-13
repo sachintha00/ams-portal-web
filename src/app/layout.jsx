@@ -7,11 +7,13 @@ import ThemeProvider from "./providers/ThemeProvider"
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Providers>
-        <ThemeProvider>
-          <AntdRegistry>{children}</AntdRegistry>
-        </ThemeProvider>
-      </Providers>
+      <body>
+        <Providers>
+          <ThemeProvider>
+            <AntdRegistry>{children}</AntdRegistry>
+          </ThemeProvider>
+        </Providers>
+      </body>
     </html>
   );
 }
